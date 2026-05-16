@@ -1,0 +1,32 @@
+using CarAPI.Entities;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CarAPI.Repositories
+{
+    public class OwnersRepository : IOwnersRepository
+    {
+        private readonly InMemoryContext _context;
+
+        public OwnersRepository(InMemoryContext inMemoryContext)
+        {
+            _context = inMemoryContext;
+        }
+
+        public List<Owner> GetAllOwners()
+        {
+            return _context.Owners;
+        }
+
+        public Owner? GetOwnerById(int id)
+        {
+            return _context.Owners.FirstOrDefault(o => o.Id == id);
+        }
+
+        public bool AddOwner(Owner owner)
+        {
+            _context.Owners.Add(owner);
+            return true;
+        }
+    }
+}
